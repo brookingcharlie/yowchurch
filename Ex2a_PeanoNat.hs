@@ -17,28 +17,31 @@ p4 = Succ p3
 -- Ex 2a.1: Implement Peano addition
 infixl 6 .+
 (.+) :: PNat -> PNat -> PNat
-(.+) Zero pn2 = undefined
-(.+) (Succ x) pn2 = undefined
+(.+) Zero pn2 = pn2
+(.+) (Succ x) pn2 = (.+) x (Succ pn2)
 
 
 -- Ex 2a.2: Implement Peano multiplication
 infixl 7 .*
 (.*) :: PNat -> PNat -> PNat
-(.*) pn1 pn2 = undefined
+(.*) Zero pn2 = Zero
+(.*) (Succ x) pn2 = pn2 .+ (x .* pn2)
 
 -- Ex 2a.3: Implement Peano exponential
 infixr 8 .^
 (.^) :: PNat -> PNat -> PNat
-(.^) pn1 pn2 = undefined
+(.^) pn1 Zero = p1
+(.^) pn1 (Succ x) = pn1 .* (pn1 .^ x)
 
 -- Ex 2a.4: Convert a Peano number to an integer
 unpeano :: PNat -> Int
-unpeano = undefined
+unpeano Zero = 0
+unpeano (Succ x) = 1 + (unpeano x)
 
 -- Ex 2a.5: Convert a non-negative integer to a Peano number
 peano :: Int -> PNat
-peano = undefined
-
+peano 0 = Zero
+peano n = Succ (peano (n - 1))
 
 
 -- Instance boilerplate

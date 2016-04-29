@@ -20,32 +20,32 @@ c4 = CNat $ \f -> f . f . f . f
 
 -- Ex 2b.1: Add one to a Church numeral
 cSucc :: CNat -> CNat
-cSucc (CNat nTimes) = undefined 
+cSucc (CNat nTimes) = CNat $ \f -> (nTimes f) . f
 
 -- Ex 2b.2: Implement Church addition
 -- Can you make it run in constant time?
 infixl 6 .+
 (.+) :: CNat -> CNat -> CNat
-(.+) (CNat nTimes) (CNat mTimes) = undefined
+(.+) (CNat nTimes) (CNat mTimes) = CNat $ \f -> (nTimes f) . (mTimes f)
 
 -- Ex 2b.3: Implement Church multiplication
 -- Can you make it run in constant time? 
 infixl 7 .*
 (.*) :: CNat -> CNat -> CNat
-(.*) n m = undefined
+(.*) (CNat nTimes) (CNat mTimes) = CNat $ nTimes . mTimes
 
 -- Ex 2b.4: Implement Church exponentiation
 infixr 8 .^
 (.^) :: CNat -> CNat -> CNat
-(.^) n m = undefined
+(.^) (CNat nTimes) (CNat mTimes) = CNat $ mTimes nTimes
 
 -- Ex 2b.5: Convert a Church numeral to an integer
 unchurch :: CNat -> Int
-unchurch = undefined
+unchurch (CNat f) = f (+1) 0
 
 -- Ex 2b.6: Convert a non-negative integer to a Church numeral.
 church :: Int -> CNat
-church = undefined
+church n = (iterate cSucc c0) !! n
 
 
 

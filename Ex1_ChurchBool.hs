@@ -17,26 +17,26 @@ cFalse = CBool $ \x y -> y
 
 -- Ex 1.1: Implement boolean not.
 cNot :: CBool -> CBool
-cNot (CBool f) = undefined
+cNot (CBool f) = CBool (flip f)
 
 -- Ex 1.2: Implement boolean and.
 infixr 3 .&&
 (.&&) :: CBool -> CBool -> CBool
-(.&&) (CBool ifA) b = undefined
+(.&&) (CBool ifA) b = ifA b cFalse
 
 -- Ex 1.3: Implement boolean or
 infixr 2 .||
 (.||) :: CBool -> CBool -> CBool
-(.||) a b = undefined
+(.||) (CBool ifA) b = ifA cTrue b
 
 -- Ex 1.4: Turn a church boolean back into a boolean
 unchurch :: CBool -> Bool
-unchurch = undefined
+unchurch (CBool ifTrue) = ifTrue True False
 
 
 -- Ex 1.5: Lift a boolean into a church boolean
 church :: Bool -> CBool
-church = undefined
+church b = if b then cTrue else cFalse
 
 
 -- Instance boilerplate
