@@ -25,7 +25,7 @@ infixr 5 .:
 -- (++) xs ys = foldr (:) ys xs
 infixr 5 .++
 (.++) :: CList a -> CList a -> CList a
-(.++) x y = undefined
+(.++) (CList f) (CList g) = CList $ \ cons nil -> f cons (g cons nil)
 
 -- Ex 3.4: Take the length of a Church list.
 cLength :: CList a -> Int
