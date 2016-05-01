@@ -29,10 +29,7 @@ infixr 5 .++
 
 -- Ex 3.4: Take the length of a Church list.
 cLength :: CList a -> Int
----- Tried to take same approach as with unchurch function
----- But how to make CList out of y? ----------v
---cLength (CList f) = f (\ x y -> 1 + (cLength y)) 0
-cLength (CList f) = undefined
+cLength (CList f) = f (\ x y -> 1 + y) 0
 
 -- 3.5: Convert a Church list to a regular list.
 unchurch :: CList a -> [a]
